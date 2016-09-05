@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html ng-app="CalApp">
+<head>
+	<title>Loan Calculator</title>
+	<meta http-eqiv="content-type" content="text/html; charset= UTF-8">
+    <meta name="viewport" content="width=device-width" content="initial-scale=1">
+
+	<!-- Linking scripts -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
+    <link href='https://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="Calstyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script type="text/javascript"></script>
+    <script src="Controller/CalController.js"></script>
+</head>
+
+<body class= "container" ng-controller="CalCtrl">
+    <section class="window">
+
+            <nav class="nav">
+                <h2 class="logo">LoanCal</h2>
+                <ul>
+                    <li><a href="#">CONTACT US</a></li>
+                    <li><a href="#">BLOG</a></li>
+                    <li><a href="#">SERVICES</a></li>
+                    <li><a href="#">HOME</a></li>
+                </ul>
+            </nav>
+    
+            
+            <center>
+                <div class="wrapper">
+                    <p class="heading">Loan Calculator</p><br>
+                    <p class="quote">Get Loan To Help You Budget</p>
+                    <a href="#main"><input type="button" class="getstarted" value="GET STARTED" ></a>
+                </div>                
+            </center>
+            </section>
+
+
+
+
+    <form id="main" name="frm" ng-submit="Calculate()">
+    <center><ul class="input-list style-4 clearfix">
+        <li>Enter Loan Amount  : <input type="number" id="textbox1" step="any" min="0" name="number" ng-model="cur_loan_amt" required>
+            <span class="required"  ng-show = "frm.number.$dirty && frm.number.$error.required">required</span>
+        </li>
+
+        <li>Enter Monthly Payment  : <input type="number" id="textbox2"  step="any" min="0" ng-model="monthly_pay" required>
+            <span class="required" ng-show = "frm.number.$dirty && frm.number.$error.required">required</span>
+        </li>
+
+        <li>Enter Interest Rate  : <input type="number" id="textbox3"  step="any" min="0" ng-model="int_rate" required>
+            <span class="required" ng-show = "frm.number.$dirty && frm.number.$error.required">required</span>
+        </li>
+
+        <li><input type="submit" onclick="myFunction()" class="getstarted cal" value="Calculate" title="Click on this button to get your Loan table" ng-disabled="frm.$invalid"></li>
+
+        <li><input type="button" class="getstarted reset" onclick="myFunction1()" value="Reset" title="Click on this button to reset your form values" ng-disabled="frm.$invalid" ng-click="Reset()"></li>
+        <script>
+            function myFunction() {
+                document.getElementById("textbox1").disabled = true;
+                document.getElementById("textbox2").disabled = true;
+                document.getElementById("textbox3").disabled = true;
+            }
+
+            function myFunction1() {
+                document.getElementById("textbox1").disabled = false;
+                document.getElementById("textbox2").disabled = false;
+                document.getElementById("textbox3").disabled = false;
+            }
+</script>
+        <script>
+            $(".cal").click(function() {
+                $('html,body').animate({
+                    scrollTop: $("#main").offset().top + 700},'slow');// allow .cal class to smoothly scrollup till #main;700 is speed
+            });
+        </script>
+    </ul></center>
+</form>
+    
+
+    <section id="table">
+        <div ng-show="calculated">
+            <div class="table-title">
+                <h3>Loan Repayment Table</h3>
+            </div>
+            <table class="table-fill">
+                <thead> 
+                    <tr>
+                        <th class="text-left">Month</th>
+                        <th class="text-left">Current Loan Amount [Interest Charged] (GBP)</th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover">
+                    <tr ng-repeat="$$hashKey in arr">
+                        <td class="text-left" >{{$$hashKey[0]}}</td> 
+                        <td class="text-left">{{$$hashKey[1]}}&nbsp;&nbsp;[{{$$hashKey[2]}}]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="contact">
+        <p class="conclude">Copyright &copy; 2016 Suryatapa Roy. Upminster: 01709 999 999. Email: suryatapa143@gmail.com. This project is uploaded to the GitHub Account. </p>
+    </section>
+</body>
+</html>
